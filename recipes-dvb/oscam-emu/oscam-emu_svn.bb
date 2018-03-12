@@ -7,8 +7,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 
 DEPENDS = "libusb1 openssl pcsc-lite"
 
-SRCREV = "11399"
-EMUREV = "767"
+SRCREV = "11401"
+EMUREV = "768"
 PV = "1.20+r${SRCPV}+r${EMUREV}"
 PR = "r0"
 
