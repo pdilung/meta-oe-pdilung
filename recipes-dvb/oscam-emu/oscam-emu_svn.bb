@@ -9,8 +9,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=d32239bcb673463ab874e80d47fae504"
 
 DEPENDS = "libusb1 openssl pcsc-lite"
 
-SRCREV = "11420"
-EMUREV = "769"
+SRCREV = "11425"
+EMUREV = "770"
 PV = "1.20+r${SRCPV}+r${EMUREV}"
 PR = "r0"
 
@@ -18,9 +18,8 @@ CAMFILE="Ncam_${PN}.sh"
 CAMNAME="Oscam ${PV} EMU r${EMUREV}"
 
 SRC_URI = "svn://www.streamboard.tv/svn/oscam;module=trunk;protocol=http;rev=${SRCREV};scmdata=keep \
-           file://add-caid-0653-to-irdeto-reader.patch;patch=1 \
-           file://oscam-emu-${EMUREV}.patch;patch=1 \
-"
+	file://add-caid-0653-to-irdeto-reader.patch;patch=1 \
+	file://oscam-emu-${EMUREV}.patch;patch=1"
 
 
 S = "${WORKDIR}/trunk"
@@ -30,16 +29,16 @@ FILES_${PN} += "/usr/camscript*"
 inherit cmake
 
 do_configure_prepend() {
-	${S}/config.sh --restore --enable WITH_SSL
+    ${S}/config.sh --restore --enable WITH_SSL
 }
 
 EXTRA_OECMAKE = "-DDEFAULT_CS_CONFDIR=${sysconfdir} -DCMAKE_BUILD_TYPE=Debug"
 
 do_install_append() {
     cat > ${CAMFILE} <<-EOF
-    #!/bin/sh
+	#!/bin/sh
 
-    CAMNAME="${CAMNAME}"
+	CAMNAME="${CAMNAME}"
 
 	remove_tmp () {
 		rm -rf /tmp/*.info* /tmp/*.tmp*
@@ -63,7 +62,7 @@ do_install_append() {
 			exit 0
 			;;
 	esac
-	
+
 	exit 0
 	EOF
 
@@ -78,7 +77,7 @@ pkg_prerm_${PN}_prepend() {
 }
 
 pkg_postinst_${PN}_append() {
-	if [ -x /usr/camscript/${CAMFILE} ]; then
-		/usr/camscript/${CAMFILE} start
-	fi
+    if [ -x /usr/camscript/${CAMFILE} ]; then
+        /usr/camscript/${CAMFILE} start
+    fi
 }
